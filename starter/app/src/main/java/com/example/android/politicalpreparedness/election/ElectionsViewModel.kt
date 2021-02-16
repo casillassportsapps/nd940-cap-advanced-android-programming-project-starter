@@ -39,10 +39,9 @@ class ElectionsViewModel(private val electionDao: ElectionDao) : ViewModel() {
     }
 
     private fun refreshUpComingElections() {
+        _status.value = CivicsApiStatus.LOADING
         viewModelScope.launch {
-            _status.value = CivicsApiStatus.LOADING
-
-            try {
+             try {
                 val response = CivicsApi.retrofitService.getElections()
                 _upcomingElections.value = response.elections
                 _status.value = CivicsApiStatus.DONE
@@ -56,6 +55,13 @@ class ElectionsViewModel(private val electionDao: ElectionDao) : ViewModel() {
     fun refreshSavedElections() {
         viewModelScope.launch {
             _savedElections.value = electionDao.getElections()
+        }
+    }
+
+    fun clearSavedElections() {
+        viewModelScope.launch {
+            electionDao.clearElections()
+            _savedElections.value = null
         }
     }
 

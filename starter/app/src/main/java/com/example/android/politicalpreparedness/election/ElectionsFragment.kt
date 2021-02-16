@@ -2,9 +2,7 @@ package com.example.android.politicalpreparedness.election
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -61,10 +59,23 @@ class ElectionsFragment : Fragment() {
             }
         }
 
+        setHasOptionsMenu(true)
         return binding.root
     }
 
     private val listener = ElectionListener { election ->
         viewModel.navigateToVoterInfo(election)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_elections, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_clear) {
+            viewModel.clearSavedElections()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -10,8 +10,8 @@
             type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />
     </data>
 
-    <!-- TODO: Add motion scene to hide form on vertical scroll. -->
     <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="@dimen/margin_horizontal"
@@ -20,118 +20,140 @@
         android:paddingBottom="@dimen/margin_vertical"
         app:layoutDescription="@xml/fragment_representative_scene">
 
-        <TextView
-            android:id="@+id/search_title"
-            style="@style/Political_Text.Large"
-            android:text="@string/text_representative_search"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/address_line_1"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/hint_address_1"
-            android:inputType="textPostalAddress"
-            android:text="@={viewModel.address.line1}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_title" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/address_line_2"
+            <TextView
+                android:id="@+id/search_title"
+                style="@style/Political_Text.Large"
+                android:text="@string/text_representative_search"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/address_line_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/hint_address_1"
+                android:inputType="textPostalAddress"
+                android:text="@={viewModel.address.line1}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_title" />
+
+            <EditText
+                android:id="@+id/address_line_2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:autofillHints=""
+                android:hint="@string/hint_address_2"
+                android:inputType="textPostalAddress"
+                android:text="@={viewModel.address.line2}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/address_line_1" />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/hint_city"
+                android:inputType="textPostalAddress"
+                android:text="@={viewModel.address.city}"
+                app:layout_constraintEnd_toStartOf="@id/state"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/address_line_2" />
+
+            <Spinner
+                android:id="@+id/state"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:entries="@array/states"
+                app:layout_constraintBottom_toBottomOf="@id/city"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/city"
+                app:layout_constraintTop_toTopOf="@id/city"
+                app:stateValue="@{viewModel.address.state}" />
+
+            <EditText
+                android:id="@+id/zip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/hint_zip"
+                android:inputType="number"
+                android:maxLength="5"
+                android:text="@={viewModel.address.zip}"
+                app:layout_constraintEnd_toEndOf="@id/city"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/city" />
+
+            <Button
+                android:id="@+id/button_search"
+                style="@style/Political_Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_representatives"
+                app:layout_constraintTop_toBottomOf="@id/zip" />
+
+            <Button
+                android:id="@+id/button_location"
+                style="@style/Political_Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_location"
+                app:layout_constraintTop_toBottomOf="@id/button_search" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:autofillHints=""
-            android:hint="@string/hint_address_2"
-            android:inputType="textPostalAddress"
-            android:text="@={viewModel.address.line2}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/address_line_1" />
-
-        <EditText
-            android:id="@+id/city"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/hint_city"
-            android:inputType="textPostalAddress"
-            android:text="@={viewModel.address.city}"
-            app:layout_constraintEnd_toStartOf="@id/state"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/address_line_2" />
-
-        <Spinner
-            android:id="@+id/state"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:autofillHints=""
-            android:inputType="textPostalAddress"
-            app:layout_constraintBottom_toBottomOf="@id/city"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/city"
-            app:layout_constraintTop_toTopOf="@id/city"
-            app:stateValue="@{viewModel.address.state}" />
-
-        <EditText
-            android:id="@+id/zip"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/hint_zip"
-            android:inputType="number"
-            android:maxLength="5"
-            android:text="@={viewModel.address.zip}"
-            app:layout_constraintEnd_toEndOf="@id/city"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/city" />
-
-        <Button
-            android:id="@+id/button_search"
-            style="@style/Political_Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/button_representatives"
-            app:layout_constraintTop_toBottomOf="@id/zip" />
-
-        <Button
-            android:id="@+id/button_location"
-            style="@style/Political_Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/button_location"
-            app:layout_constraintTop_toBottomOf="@id/button_search" />
-
-        <TextView
-            android:id="@+id/representative_title"
-            style="@style/Political_Text.Large"
-            android:text="@string/text_representatives"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_location" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/representative_title"
-            app:repsData="@{viewModel.representatives}"
-            tools:listitem="@layout/list_item_representative" />
+            app:layout_constraintTop_toBottomOf="@+id/constraint1">
 
-        <TextView
-            android:id="@+id/list_placeholder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/empty_representatives"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/recycler"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recycler"
-            tools:visibility="visible"
-            tools:visibilityMode="ignore" />
+            <TextView
+                android:id="@+id/representative_title"
+                style="@style/Political_Text.Large"
+                android:text="@string/text_representatives"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/representative_title"
+                app:repsData="@{viewModel.representatives}"
+                tools:listitem="@layout/list_item_representative" />
+
+            <TextView
+                android:id="@+id/list_placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_representatives"
+                app:layout_constraintBottom_toBottomOf="@id/recycler"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/recycler" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

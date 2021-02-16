@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">Political Preparedness</string>
 
+    <string name="action_settings">Settings</string>
+    <string name="action_clear">Clear Saved Elections</string>
+
     <string name="button_upcoming_selections">Upcoming Elections</string>
     <string name="button_representatives">Find My Representatives</string>
     <string name="button_follow_election">Follow Election</string>
@@ -28,6 +31,8 @@
     <string name="button_ok">@android:string/ok</string>
 
     <string name="dialog_title_error_net">Network Error</string>
+
+    <string name="permission_denied_explanation">Location services must be enabled to use this feature.</string>
 
     <string name="accessibility_logo">App Logo</string>
     <string name="accessibility_loading">Loading Data</string>
