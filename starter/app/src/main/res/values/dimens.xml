@@ -10,4 +10,7 @@
     <dimen name="text_size_medium">18sp</dimen>
     <dimen name="text_size_large">22sp</dimen>
 
+    <dimen name="icon_size_small">30dp</dimen>
+    <dimen name="icon_size_large">64dp</dimen>
+
 </resources>

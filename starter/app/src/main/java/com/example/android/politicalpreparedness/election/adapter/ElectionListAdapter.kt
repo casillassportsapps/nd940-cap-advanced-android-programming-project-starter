@@ -38,5 +38,4 @@ class ElectionListAdapter(val listener: ElectionListener): ListAdapter<Election,
         }
     }
 
-
 }
