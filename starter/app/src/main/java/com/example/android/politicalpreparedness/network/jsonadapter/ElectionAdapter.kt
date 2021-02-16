@@ -20,4 +20,6 @@ class ElectionAdapter {
     fun divisionToJson (division: Division): String {
         return division.id
     }
+
+
 }

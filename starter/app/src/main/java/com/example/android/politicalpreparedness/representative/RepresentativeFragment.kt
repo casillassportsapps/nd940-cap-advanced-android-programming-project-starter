@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import com.example.android.politicalpreparedness.extensions.setDisplayHomeAsUpEnabled
 import com.example.android.politicalpreparedness.network.models.Address
 import java.util.Locale
 
@@ -22,6 +23,8 @@ class DetailFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        setDisplayHomeAsUpEnabled(true)
+
         //TODO: Establish bindings
 
         //TODO: Define and assign Representative adapter
@@ -29,7 +32,7 @@ class DetailFragment : Fragment() {
         //TODO: Populate Representative adapter
 
         //TODO: Establish button listeners for field and location search
-
+        return null
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -38,16 +41,12 @@ class DetailFragment : Fragment() {
     }
 
     private fun checkLocationPermissions(): Boolean {
-        return if (isPermissionGranted()) {
-            true
-        } else {
-            //TODO: Request Location permissions
-            false
-        }
+        return isPermissionGranted()
     }
 
     private fun isPermissionGranted() : Boolean {
         //TODO: Check if permission is already granted and return (true = granted, false = denied/other)
+        return false
     }
 
     private fun getLocation() {
@@ -66,7 +65,7 @@ class DetailFragment : Fragment() {
 
     private fun hideKeyboard() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
 }
